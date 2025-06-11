@@ -7,18 +7,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>Consulta de Veículo</h1>
+        <div id="resultado" style="display:none;"></div>
         <form id="consulta-form">
-            
             <input type="text" id="parametro" name="parametro" required placeholder="ABC1234">
-
-               <div class="botoes">
-                <button type="button" id="limpar-campo" style="display:none;">Limpar</button>
-                <button type="submit">Consultar</button>
+            <div class="botoes">
+                <button type="submit" id="consultar-btn">Consultar</button>
+                <button type="button" id="nova-consulta" style="display:none;">Nova Consulta</button>
             </div>
         </form>
-        <div id="resultado"             style="display:none;"></div>
-               </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
