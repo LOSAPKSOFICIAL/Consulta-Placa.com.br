@@ -10,10 +10,13 @@
         <h1>Consulta de Veículo</h1>
         <form id="consulta-form">
             <h4>Digite a placa abaixo</h4>
-            <input type="text" id="parametro" name="parametro" required>
-            <button type="submit">Consultar</button>
+            <input type="text" id="parametro" name="parametro" required placeholder="ABC1234">
+            <div class="botoes">
+                <button type="button" id="limpar-campo" style="display:none;">Limpar Campo</button>
+                <button type="submit">Consultar</button>
+            </div>
         </form>
-        <div id="resultado"></div>
+        <div id="resultado" style="display:none;"></div>
     </div>
     <script src="script.js"></script>
 </body>
