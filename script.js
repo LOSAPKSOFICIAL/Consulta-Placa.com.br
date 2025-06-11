@@ -19,14 +19,17 @@ btnLimpar.addEventListener('click', function () {
 document.getElementById('consulta-form').addEventListener('submit', async function (e) {
     e.preventDefault();
     const parametro = campoParametro.value.trim();
-    resultado.innerHTML = "Consultando...";
-    resultado.style.display = "block";
 
     if (!parametro) {
         resultado.innerHTML = "Por favor, informe o parâmetro de pesquisa.";
+        resultado.style.display = "block";
         btnLimpar.style.display = "none";
         return;
     }
+
+    resultado.innerHTML = "Consultando...";
+    resultado.style.display = "block";
+    btnLimpar.style.display = "none"; // Garante que só aparece se realmente houver resposta
 
     const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
 
@@ -38,6 +41,13 @@ document.getElementById('consulta-form').addEventListener('submit', async functi
             return;
         }
         const data = await res.json();
+
+        // Checa se há dados válidos
+        if (!data || (!data.marca && !data.MARCA)) {
+            resultado.innerHTML = "Nenhum resultado encontrado.";
+            btnLimpar.style.display = "block";
+            return;
+        }
 
         let marca = data.MARCA || data.marca || "-";
         const marcaNormalizada = marca.replace(/\./g, '').toUpperCase();
@@ -61,6 +71,7 @@ document.getElementById('consulta-form').addEventListener('submit', async functi
         btnLimpar.style.display = "block";
     } catch (err) {
         resultado.innerHTML = "Erro ao consultar a API.";
+        resultado.style.display = "block";
         btnLimpar.style.display = "block";
         console.error(err);
     }
