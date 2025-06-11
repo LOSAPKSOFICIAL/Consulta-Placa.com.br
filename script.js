@@ -2,52 +2,43 @@ const SEU_TOKEN = 'a05dd595d049235b1109e0a5fc922363';
 
 const campoParametro = document.getElementById('parametro');
 const resultado = document.getElementById('resultado');
-const btnLimpar = document.getElementById('limpar-campo');
+const btnNovaConsulta = document.getElementById('nova-consulta');
+const form = document.getElementById('consulta-form');
+const btnConsultar = document.getElementById('consultar-btn');
 
-// Esconde elementos ao carregar a página
-btnLimpar.style.display = "none";
+// Estado inicial: só campo e consultar
 resultado.style.display = "none";
+btnNovaConsulta.style.display = "none";
+campoParametro.style.display = "block";
+btnConsultar.style.display = "inline-block";
 
-// Ao clicar em Limpar Campo
-btnLimpar.addEventListener('click', function () {
-    campoParametro.value = '';
-    resultado.style.display = "none";
-    btnLimpar.style.display = "none";
-});
-
-// Ao submeter o formulário
-document.getElementById('consulta-form').addEventListener('submit', async function (e) {
+form.addEventListener('submit', async function (e) {
     e.preventDefault();
     const parametro = campoParametro.value.trim();
 
     if (!parametro) {
         resultado.innerHTML = "Por favor, informe o parâmetro de pesquisa.";
         resultado.style.display = "block";
-        btnLimpar.style.display = "none";
         return;
     }
 
     resultado.innerHTML = "Consultando...";
     resultado.style.display = "block";
-    btnLimpar.style.display = "none"; // Garante que só aparece se realmente houver resposta
 
     const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
+
+    // Esconde campo e botão consultar, mostra só nova consulta
+    campoParametro.style.display = "none";
+    btnConsultar.style.display = "none";
+    btnNovaConsulta.style.display = "inline-block";
 
     try {
         const res = await fetch(url);
         if (!res.ok) {
             resultado.innerHTML = `Erro ao consultar API: ${res.status}`;
-            btnLimpar.style.display = "block";
             return;
         }
         const data = await res.json();
-
-        // Checa se há dados válidos
-        if (!data || (!data.marca && !data.MARCA)) {
-            resultado.innerHTML = "Nenhum resultado encontrado.";
-            btnLimpar.style.display = "block";
-            return;
-        }
 
         let marca = data.MARCA || data.marca || "-";
         const marcaNormalizada = marca.replace(/\./g, '').toUpperCase();
@@ -68,11 +59,17 @@ document.getElementById('consulta-form').addEventListener('submit', async functi
             <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
             <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
         `;
-        btnLimpar.style.display = "block";
     } catch (err) {
         resultado.innerHTML = "Erro ao consultar a API.";
-        resultado.style.display = "block";
-        btnLimpar.style.display = "block";
         console.error(err);
     }
+});
+
+btnNovaConsulta.addEventListener('click', function () {
+    campoParametro.value = '';
+    resultado.style.display = "none";
+    campoParametro.style.display = "block";
+    btnConsultar.style.display = "inline-block";
+    btnNovaConsulta.style.display = "none";
+    campoParametro.focus();
 });
