@@ -34,12 +34,36 @@ h1 {
   width: 100%;
 }
 
-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #333;
+.botoes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 14px;
   width: 100%;
-  max-width: 300px;
+}
+
+#consulta-form button {
+  padding: 10px 26px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0070f3;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+#consulta-form button#limpar-campo {
+  background-color: #f44336;
+}
+
+#consulta-form button#limpar-campo:hover {
+  background-color: #b71c1c;
+}
+
+#consulta-form button[type="submit"]:hover {
+  background-color: #005bb5;
 }
 
 input[type="text"] {
@@ -52,26 +76,30 @@ input[type="text"] {
   box-sizing: border-box;
 }
 
-button {
-  padding: 10px 26px;
-  border: none;
-  border-radius: 5px;
-  background-color: #0070f3;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 10px;
-  align-self: center;
-}
-
-button:hover {
-  background-color: #005bb5;
-}
-
 #resultado {
   margin-top: 30px;
   background: #f3f3f3;
   padding: 18px 12px;
   border-radius: 6px;
   min-height: 32px;
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+  align-self: center;
+  /* Começa oculto, controlado via JS */
+  display: none;
+}
+
+/* Estilo para os dados apresentados */
+.linha-dado {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.dado-label {
+  font-weight: bold;
+  color: #222;
+}
+.dado-valor {
+  color: #444;
 }
