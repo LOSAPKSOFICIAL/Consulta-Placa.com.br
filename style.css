@@ -89,38 +89,3 @@ button:hover {
 .dado-valor {
   color: #444;
 }
-
-.titulo-consulta {
-  font-weight: bold;
-  font-size: 2.5em;          /* maior */
-  color: #111;               /* preto padrão */
-  margin-top: 0;
-  margin-bottom: 32px;
-  padding: 0 16px;           /* espaçamento nas laterais */
-  transition: color 0.3s;
-  cursor: pointer;
-  user-select: text;         /* permite seleção de texto normalmente */
-}
-
-/* Hover: texto inteiro ciano, exceto durante seleção */
-.titulo-consulta:hover {
-  color: #00bcd4;
-}
-
-/* Seleção: só a parte selecionada fica ciano, sem fundo */
-.titulo-consulta::selection {
-  color: #00bcd4;
-  background: transparent;
-}
-.titulo-consulta::-moz-selection {
-  color: #00bcd4;
-  background: transparent;
-} selecionada fica ciano, sem fundo */
-.titulo-consulta::selection {
-  background: transparent;
-  color: #00bcd4;
-}
-.titulo-consulta::-moz-selection {
-  background: transparent;
-  color: #00bcd4;
-}
