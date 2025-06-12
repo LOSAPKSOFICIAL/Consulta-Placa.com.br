@@ -54,6 +54,8 @@ form.addEventListener('submit', async function (e) {
         const anoModelo = data.anoModelo || data.ano_modelo || "-";
 
         resultado.innerHTML = `
+            <div class="linha-dado"><span             class="dado-label">Placa:</span> <span class="dado-valor">${campoParametro}</span></div>
+            <div class="linha-dado"><span
             <div class="linha-dado"><span class="dado-label">Marca:</span> <span class="dado-valor">${marca}</span></div>
             <div class="linha-dado"><span class="dado-label">Modelo:</span> <span class="dado-valor">${modelo}</span></div>
             <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
