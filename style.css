@@ -10,6 +10,7 @@ body {
 }
 
 .container {
+ ;
   max-width: 400px;
   width: 100%;
   padding: 32px 28px 40px 28px;
@@ -18,39 +19,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #fff;
-}
-
-.titulo-consulta {
-  font-weight: bold;
-  font-size: 2em;
-  margin-top: 0;
-  margin-bottom: 28px;
-  color: #0099ff; /* ciano padrão */
-  letter-spacing: 0.5px;
-  transition: color 0.3s, background 0.3s, -webkit-background-clip 0.3s;
-  cursor: pointer;
-  background: none;
-}
-
-/* Hover: efeito ciano gradiente e texto vibrante */
-.titulo-consulta:hover {
-  background: linear-gradient(90deg, #00eaff, #0099ff, #00ffc8, #005fa3);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  transition: background 0.4s, color 0.4s;
-}
-
-/* Seleção: fundo ciano, texto branco */
-.titulo-consulta::selection {
-  background: #00eaff;
-  color: #fff;
-}
-.titulo-consulta::-moz-selection {
-  background: #00eaff;
-  color: #fff;
 }
 
 #resultado {
@@ -65,7 +33,6 @@ body {
   align-self: center;
   text-align: left;
   display: none;
-  font-size: 1.04em;
 }
 
 #consulta-form {
@@ -80,16 +47,9 @@ input[type="text"] {
   max-width: 300px;
   padding: 8px 10px;
   margin-bottom: 16px;
-  border: 1px solid #b6eaff;
+  border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
-  font-size: 1em;
-  background: #fafdff;
-  transition: border 0.2s;
-}
-input[type="text"]:focus {
-  border-color: #00eaff;
-  outline: none;
 }
 
 .botoes {
@@ -104,18 +64,17 @@ button {
   padding: 10px 26px;
   border: none;
   border-radius: 5px;
-  background-color: #0099ff;
+  background-color: #0070f3;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
   margin-top: 10px;
   align-self: center;
-  transition: background 0.2s, box-shadow 0.2s;
-  box-shadow: 0 1px 6px #00eaff22;
+  transition: background 0.2s;
 }
+
 button:hover {
-  background-color: #00eaff;
-  color: #005fa3;
+  background-color: #005bb5;
 }
 
 .linha-dado {
@@ -128,5 +87,5 @@ button:hover {
   color: #222;
 }
 .dado-valor {
-  color: #0099ff;
+  color: #444;
 }
