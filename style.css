@@ -89,3 +89,28 @@ button:hover {
 .dado-valor {
   color: #444;
 }
+
+.titulo-consulta {
+  font-weight: bold;
+  font-size: 2em;
+  color: #111; /* preto padrão */
+  margin-top: 0;
+  margin-bottom: 28px;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+/* Hover: texto inteiro ciano */
+.titulo-consulta:hover {
+  color: #00bcd4; /* ciano */
+}
+
+/* Seleção: só a parte selecionada fica ciano, sem fundo */
+.titulo-consulta::selection {
+  background: transparent;
+  color: #00bcd4;
+}
+.titulo-consulta::-moz-selection {
+  background: transparent;
+  color: #00bcd4;
+}
