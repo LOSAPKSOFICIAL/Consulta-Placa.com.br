@@ -56,7 +56,7 @@ form.addEventListener('submit', async function (e) {
         resultado.innerHTML = `
             <div class="linha-dado"><span             class="dado-label">Placa:</span> <span class="dado-valor">${campoParametro}</span></div>
             <div class="linha-dado"><span
-            <div class="linha-dado"><span class="dado-label">Marca:</span> <span class="dado-valor">${marca}</span></div>
+class="dado-label">Marca:</span> <span class="dado-valor">${marca}</span></div>
             <div class="linha-dado"><span class="dado-label">Modelo:</span> <span class="dado-valor">${modelo}</span></div>
             <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
             <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
