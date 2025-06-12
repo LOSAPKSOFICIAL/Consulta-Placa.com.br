@@ -34,11 +34,31 @@ form.addEventListener('submit', async function (e) {
 
     try {
         const res = await fetch(url);
-        if (!res.ok) {
-            resultado.innerHTML = `Erro ao consultar API: ${res.status}`;
+
+        let data;
+        // Tenta sempre ler como texto antes de parsear como JSON
+        const text = await res.text();
+        try {
+            data = JSON.parse(text);
+        } catch {
+            data = null;
+        }
+
+        // Tratamento dos erros mais comuns
+        if (!res.ok || !data || typeof data !== "object" || data === null) {
+            let msg = "Erro ao consultar a API.";
+            if (text.includes("406") || text.toLowerCase().includes("sem resultados")) {
+                msg = "Não foram encontrados resultados para a placa informada.";
+            } else if (text.includes("401") || text.toLowerCase().includes("placa inválida")) {
+                msg = "Placa inválida!";
+            } else if (text.includes("402") || text.toLowerCase().includes("token inválido")) {
+                msg = "Token inválido!";
+            } else if (text.includes("429") || text.toLowerCase().includes("limite")) {
+                msg = "Limite de consultas atingido. Tente novamente mais tarde!";
+            }
+            resultado.innerHTML = msg;
             return;
         }
-        const data = await res.json();
 
         let marca = data.MARCA || data.marca || "-";
         const marcaNormalizada = marca.replace(/\./g, '').toUpperCase();
@@ -54,9 +74,8 @@ form.addEventListener('submit', async function (e) {
         const anoModelo = data.anoModelo || data.ano_modelo || "-";
 
         resultado.innerHTML = `
-            <div class="linha-dado"><span             class="dado-label">Placa:</span> <span class="dado-valor">${parametro}</span></div>
-            <div class="linha-dado"><span
-class="dado-label">Marca:</span> <span class="dado-valor">${marca}</span></div>
+            <div class="linha-dado"><span class="dado-label">Placa:</span> <span class="dado-valor">${parametro}</span></div>
+            <div class="linha-dado"><span class="dado-label">Marca:</span> <span class="dado-valor">${marca}</span></div>
             <div class="linha-dado"><span class="dado-label">Modelo:</span> <span class="dado-valor">${modelo}</span></div>
             <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
             <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
