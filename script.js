@@ -6,7 +6,7 @@ const btnNovaConsulta = document.getElementById('nova-consulta');
 const form = document.getElementById('consulta-form');
 const btnConsultar = document.getElementById('consultar-btn');
 
-// Dinâmica para trocar placeholder entre ABC1234 e ABC1C34
+// Placeholder dinâmico
 let alterna = false;
 setInterval(() => {
   if (document.activeElement !== campoParametro && campoParametro.value === '') {
@@ -15,11 +15,9 @@ setInterval(() => {
   }
 }, 1800);
 
-// Apenas até 7 caracteres
+// Força maiúsculo ao digitar ou colar (sem impedir digitação minúscula)
 campoParametro.addEventListener('input', function () {
-  if (this.value.length > 7) {
-    this.value = this.value.slice(0, 7);
-  }
+  this.value = this.value.toUpperCase().slice(0, 7);
 });
 
 resultado.style.display = "none";
@@ -27,12 +25,6 @@ resultado.classList.remove("visible");
 btnNovaConsulta.style.display = "none";
 campoParametro.style.display = "block";
 btnConsultar.style.display = "inline-block";
-
-function exibeCarregando() {
-    resultado.innerHTML = `<div style="text-align:center;font-size:1.18em;color:#444;background:#f4f5f7;border-radius:6px;padding:22px 0;">Consultando...</div>`;
-    resultado.classList.add("visible");
-    resultado.style.display = "flex";
-}
 
 function exibeResultado(parametro, marca, modelo, anoFabri, anoModelo) {
     resultado.innerHTML = `
@@ -62,8 +54,19 @@ form.addEventListener('submit', async function (e) {
     campoParametro.style.display = "none";
     btnConsultar.style.display = "none";
     btnNovaConsulta.style.display = "inline-block";
+    resultado.classList.remove("visible");
+    resultado.style.display = "none";
 
-    exibeCarregando();
+    // SweetAlert carregando
+    Swal.fire({
+        title: 'Buscando informações',
+        text: 'Aguarde...',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
 
     const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
 
@@ -77,6 +80,8 @@ form.addEventListener('submit', async function (e) {
         } catch {
             data = null;
         }
+
+        Swal.close();
 
         // Tratamento dos erros mais comuns
         if (!res.ok || !data || typeof data !== "object" || data === null) {
@@ -117,6 +122,7 @@ form.addEventListener('submit', async function (e) {
 
         exibeResultado(parametro, marca, modelo, anoFabri, anoModelo);
     } catch (err) {
+        Swal.close();
         Swal.fire({
             icon: 'error',
             title: 'Erro',
