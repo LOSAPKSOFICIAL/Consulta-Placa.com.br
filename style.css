@@ -1,4 +1,4 @@
-body {
+html, body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -17,7 +17,7 @@ body {
 }
 
 .container {
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
   background: #fff;
   border-radius: 16px;
@@ -31,7 +31,7 @@ body {
 
 .titulo-consulta {
   font-weight: bold;
-  font-size: 2.2em;
+  font-size: 2.7em;
   color: #111;
   margin-top: 0;
   margin-bottom: 30px;
@@ -48,16 +48,21 @@ form {
 }
 
 input[type="text"] {
-  padding: 11px;
-  font-size: 1.15em;
+  padding: 16px 18px;
+  font-size: 2em;
   border: 1px solid #bdbdbd;
-  border-radius: 4px;
-  width: 220px;
-  margin-bottom: 22px;
+  border-radius: 7px;
+  width: 85%;
+  min-width: 220px;
+  max-width: 400px;
+  margin-bottom: 32px;
   background: #fafafa;
   transition: border 0.2s;
-  text-align: left; /* Mantém o texto do input à esquerda */
+  text-align: left;
   display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
 input[type="text"]:focus {
@@ -98,16 +103,16 @@ input[type="text"]:focus {
 .grupo-botoes {
   display: flex;
   justify-content: center;
-  gap: 0;
-  margin-top: 24px;
   width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .btn {
-  padding: 12px 26px;
-  font-size: 1.06em;
+  padding: 18px 40px;
+  font-size: 2em;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   background: #1976ed;
   color: #fff;
   cursor: pointer;
@@ -130,8 +135,8 @@ input[type="text"]:focus {
 }
 
 .assinatura {
-  margin-top: 22px;
-  font-size: 1em;
+  margin-top: 35px;
+  font-size: 1.3em;
   color: #222;
   opacity: 1;
   text-align: center;
@@ -140,17 +145,30 @@ input[type="text"]:focus {
   user-select: text;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 700px) {
   .container {
-    max-width: 96vw;
-    padding: 16px 4vw 18px 4vw;
-  }
-  #resultado {
-    padding: 10px 5px 10px 5px;
+    max-width: 99vw;
+    padding: 16px 2vw 18px 2vw;
   }
   input[type="text"] {
-    width: 96vw;
+    width: 98vw;
     min-width: 0;
     max-width: 100%;
+    font-size: 1.3em;
+    padding: 14px 12px;
+    margin-bottom: 24px;
+  }
+  .btn {
+    padding: 13px 0;
+    font-size: 1.2em;
+    width: 90vw;
+    max-width: 350px;
+  }
+  .assinatura {
+    font-size: 1em;
+    margin-top: 20px;
+  }
+  .titulo-consulta {
+    font-size: 2em;
   }
 }
