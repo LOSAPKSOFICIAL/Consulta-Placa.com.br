@@ -67,7 +67,9 @@ form.addEventListener('submit', async function (e) {
             marca = "VOLKSWAGEN";
         } else if (marcaNormalizada === "MBENZ") {
             marca = "Mercedes Benz";
-        }
+        } else if (marca === "CHEV"){
+            marca = "CHEVROLET";
+}
 
         const modelo = data.MODELO || data.modelo || "-";
         const anoFabri = data.ano || "-";
