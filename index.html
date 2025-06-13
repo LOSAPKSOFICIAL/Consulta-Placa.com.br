@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Consulta de Placa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,23 +10,13 @@
     <h1 class="titulo-consulta">Consulta de placa</h1>
 
     <form id="consulta-form" autocomplete="off">
-      <input 
-        type="text" 
-        id="parametro" 
-        placeholder="ABC1234" 
-        maxlength="8" 
-        required 
-        autocomplete="off"
-      >
-      <div class="botoes">
-        <button type="submit" id="consultar-btn">Consultar</button>
-        <button type="button" id="nova-consulta" style="display:none;">Nova Consulta</button>
-      </div>
+      <input type="text" id="parametro" placeholder="Digite a placa" maxlength="8" required>
+      <div id="resultado"></div>
+      <button type="submit" id="consultar-btn" class="btn">Consultar</button>
+      <button type="button" id="nova-consulta" class="btn" style="display:none;">Nova Consulta</button>
     </form>
-
-    <div id="resultado" style="display:none;">Consultando...</div>
-    <p class="rodape">Desenvolvido por Matheus Comege</p>
   </div>
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="script.js"></script>
 </body>
