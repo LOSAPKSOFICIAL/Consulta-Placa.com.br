@@ -10,35 +10,17 @@
     <h1 class="titulo-consulta">Consulta de placa</h1>
 
     <form id="consulta-form" autocomplete="off">
-      <input type="text" id="parametro" placeholder="Digite a placa" maxlength="8" required>
+      <input type="text" id="parametro" placeholder="ABC1234" maxlength="8" required>
       <button type="submit" id="consultar-btn">Consultar</button>
       <button type="button" id="nova-consulta" style="display:none;">Nova Consulta</button>
     </form>
 
     <div id="resultado"></div>
+    <p style="margin-top: 16px; font-size: 0.9em; color: #777;">Desenvolvido por Matheus Comege</p>
   </div>
 
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="script.js"></script>
-
-  <!-- Script para seleção de texto no título -->
-  <script>
-    const titulo = document.querySelector('.titulo-consulta');
-    function atualizarClasseSelecionando() {
-      const selection = window.getSelection();
-      if (
-        selection &&
-        selection.rangeCount > 0 &&
-        titulo.contains(selection.anchorNode) &&
-        String(selection).length > 0
-      ) {
-        titulo.classList.add('selecionando');
-      } else {
-        titulo.classList.remove('selecionando');
-      }
-    }
-    document.addEventListener('selectionchange', atualizarClasseSelecionando);
-  </script>
 </body>
 </html>
