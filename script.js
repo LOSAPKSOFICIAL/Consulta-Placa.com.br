@@ -1,111 +1,156 @@
-const SEU_TOKEN = 'a05dd595d049235b1109e0a5fc922363';
-
-const campoParametro = document.getElementById('parametro');
-const resultado = document.getElementById('resultado');
-const btnNovaConsulta = document.getElementById('nova-consulta');
-const form = document.getElementById('consulta-form');
-const btnConsultar = document.getElementById('consultar-btn');
-
-// Estado inicial
-resultado.style.display = "none";
-btnNovaConsulta.style.display = "none";
-campoParametro.style.display = "block";
-btnConsultar.style.display = "inline-block";
-
-function exibeCarregando() {
-    resultado.style.display = "block";
-    resultado.innerHTML = `<div style="text-align:center;font-size:1.18em;color:#444;background:#f4f5f7;border-radius:6px;padding:22px 0;">Consultando...</div>`;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #f4f5f7;
+  font-family: Arial, sans-serif;
+  width: 100vw;
 }
 
-function exibeResultado(parametro, marca, modelo, anoFabri, anoModelo) {
-    resultado.innerHTML = `
-        <div class="linha-dado"><span class="dado-label">Placa:</span> <span class="dado-valor">${parametro}</span></div>
-        <div class="linha-dado"><span class="dado-label">Marca:</span> <span class="dado-valor">${marca}</span></div>
-        <div class="linha-dado"><span class="dado-label">Modelo:</span> <span class="dado-valor">${modelo}</span></div>
-        <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
-        <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
-    `;
-    resultado.style.display = "block";
+/* Centraliza tudo vertical e horizontal em todas resoluções */
+.centro {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const parametro = campoParametro.value.trim();
+.container {
+  max-width: 400px;
+  width: 100%;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px #00000015;
+  padding: 32px 24px 24px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-    if (!parametro) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro',
-            text: 'Por favor, informe a placa para consultar.'
-        });
-        return;
-    }
+.titulo-consulta {
+  font-weight: bold;
+  font-size: 2.2em;
+  color: #111;
+  margin-top: 0;
+  margin-bottom: 30px;
+  padding: 0 10px;
+  user-select: text;
+  text-align: center;
+}
 
-    // Atualiza layout para "consultando"
-    campoParametro.style.display = "none";
-    btnConsultar.style.display = "none";
-    btnNovaConsulta.style.display = "inline-block";
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-    exibeCarregando();
+input[type="text"] {
+  padding: 11px;
+  font-size: 1.15em;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  width: 220px;
+  margin-bottom: 22px;
+  background: #fafafa;
+  transition: border 0.2s;
+  text-align: left; /* Mantém o texto do input à esquerda */
+  display: block;
+}
 
-    const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
+input[type="text"]:focus {
+  border: 1.5px solid #0074D9;
+  outline: none;
+  background: #fff;
+}
 
-    try {
-        const res = await fetch(url);
+#resultado {
+  margin: 0 auto 0 auto;
+  max-width: 320px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #00000010;
+  padding: 18px 12px 14px 12px;
+  font-size: 1.13em;
+  display: none;
+  text-align: left;
+}
 
-        let data;
-        const text = await res.text();
-        try {
-            data = JSON.parse(text);
-        } catch {
-            data = null;
-        }
+.linha-dado {
+  margin: 12px 0;
+  display: flex;
+  justify-content: space-between;
+}
 
-        // Tratamento dos erros mais comuns
-        if (!res.ok || !data || typeof data !== "object" || data === null) {
-            let msg = "Erro ao consultar a API.";
-            if (text.includes("406") || text.toLowerCase().includes("sem resultados")) {
-                msg = "Não foram encontrados resultados para a placa informada.";
-            } else if (text.includes("401") || text.toLowerCase().includes("placa inválida")) {
-                msg = "Placa inválida!";
-            } else if (text.includes("402") || text.toLowerCase().includes("token inválido")) {
-                msg = "Token inválido!";
-            } else if (text.includes("429") || text.toLowerCase().includes("limite")) {
-                msg = "Limite de consultas atingido. Tente novamente mais tarde!";
-            }
-            resultado.innerHTML = `<div style="text-align:center;font-size:1.1em;color:#b11;background:#fee;border-radius:6px;padding:20px 0;">${msg}</div>`;
-            resultado.style.display = "block";
-            return;
-        }
+.dado-label {
+  color: #222;
+  font-weight: bold;
+}
 
-        let marca = data.MARCA || data.marca || "-";
-        const marcaNormalizada = marca.replace(/\./g, '').toUpperCase();
+.dado-valor {
+  color: #222;
+  font-weight: normal;
+  margin-left: 12px;
+}
 
-        if (marca === "VW") {
-            marca = "VOLKSWAGEN";
-        } else if (marcaNormalizada === "MBENZ") {
-            marca = "Mercedes Benz";
-        } else if (marca === "CHEV"){
-            marca = "CHEVROLET";
-        }
+.grupo-botoes {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-top: 24px;
+  width: 100%;
+}
 
-        const modelo = data.MODELO || data.modelo || "-";
-        const anoFabri = data.ano || "-";
-        const anoModelo = data.anoModelo || data.ano_modelo || "-";
+.btn {
+  padding: 12px 26px;
+  font-size: 1.06em;
+  border: none;
+  border-radius: 6px;
+  background: #1976ed;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: inline-block;
+  margin: 0 auto;
+  font-weight: 500;
+}
 
-        exibeResultado(parametro, marca, modelo, anoFabri, anoModelo);
-    } catch (err) {
-        resultado.innerHTML = `<div style="text-align:center;font-size:1.1em;color:#b11;background:#fee;border-radius:6px;padding:20px 0;">Erro ao consultar a API.</div>`;
-        resultado.style.display = "block";
-        console.error(err);
-    }
-});
+.btn:hover, .btn:focus {
+  background: #0456b2;
+}
 
-btnNovaConsulta.addEventListener('click', function () {
-    campoParametro.value = '';
-    resultado.style.display = "none";
-    campoParametro.style.display = "block";
-    btnConsultar.style.display = "inline-block";
-    btnNovaConsulta.style.display = "none";
-    campoParametro.focus();
-});
+#consultar-btn {
+  display: inline-block;
+}
+
+#nova-consulta {
+  display: none;
+}
+
+.assinatura {
+  margin-top: 22px;
+  font-size: 1em;
+  color: #222;
+  opacity: 1;
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  user-select: text;
+}
+
+@media (max-width: 500px) {
+  .container {
+    max-width: 96vw;
+    padding: 16px 4vw 18px 4vw;
+  }
+  #resultado {
+    padding: 10px 5px 10px 5px;
+  }
+  input[type="text"] {
+    width: 96vw;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
