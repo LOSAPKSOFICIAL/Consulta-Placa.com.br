@@ -7,13 +7,21 @@ const form = document.getElementById('consulta-form');
 const btnConsultar = document.getElementById('consultar-btn');
 
 // Placeholder dinâmico
-let alterna = false;
+let alterna = 0;
+const placeholders = [
+  'ABC1234',
+  'ABC1C34',
+  'EXE2443',
+  'EXE2E43',
+  'ALT2334',
+  'ALT2D34'
+];
 setInterval(() => {
   if (document.activeElement !== campoParametro && campoParametro.value === '') {
-    campoParametro.setAttribute('placeholder', alterna ? 'ABC1234' : 'ABC1C34 : EXE2443: EXE2E43: ALT2334: ALT2D34');
-    alterna = !alterna;
+    campoParametro.setAttribute('placeholder', placeholders[alterna]);
+    alterna = (alterna + 1) % placeholders.length;
   }
-}, 1800);
+}, 3000);
 
 // Força maiúsculo ao digitar ou colar (sem impedir digitação minúscula)
 campoParametro.addEventListener('input', function () {
