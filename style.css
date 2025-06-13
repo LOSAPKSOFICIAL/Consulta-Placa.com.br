@@ -74,6 +74,7 @@ input[type="text"]:focus {
 }
 
 #resultado {
+  width: 100%;
   max-width: 380px;
   min-width: 200px;
   display: none;
