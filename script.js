@@ -12,6 +12,22 @@ btnNovaConsulta.style.display = "none";
 campoParametro.style.display = "block";
 btnConsultar.style.display = "inline-block";
 
+function exibeCarregando() {
+    resultado.style.display = "block";
+    resultado.innerHTML = `<div style="text-align:center;font-size:1.18em;color:#444;background:#f4f5f7;border-radius:6px;padding:22px 0;">Consultando...</div>`;
+}
+
+function exibeResultado(parametro, marca, modelo, anoFabri, anoModelo) {
+    resultado.innerHTML = `
+        <div class="linha-dado"><span class="dado-label">Placa:</span> <span class="dado-valor">${parametro}</span></div>
+        <div class="linha-dado"><span class="dado-label">Marca:</span> <span class="dado-valor">${marca}</span></div>
+        <div class="linha-dado"><span class="dado-label">Modelo:</span> <span class="dado-valor">${modelo}</span></div>
+        <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
+        <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
+    `;
+    resultado.style.display = "block";
+}
+
 form.addEventListener('submit', async function (e) {
     e.preventDefault();
     const parametro = campoParametro.value.trim();
@@ -25,23 +41,14 @@ form.addEventListener('submit', async function (e) {
         return;
     }
 
-    // Exibe o carregando
-    Swal.fire({
-        title: 'Carregando...',
-        text: 'Buscando informações, aguarde.',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        didOpen: () => {
-            Swal.showLoading();
-        }
-    });
-
-    const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
-
-    // Esconde campo e botão consultar, mostra só nova consulta (mas o grupo de botões permanece)
+    // Atualiza layout para "consultando"
     campoParametro.style.display = "none";
     btnConsultar.style.display = "none";
     btnNovaConsulta.style.display = "inline-block";
+
+    exibeCarregando();
+
+    const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
 
     try {
         const res = await fetch(url);
@@ -53,8 +60,6 @@ form.addEventListener('submit', async function (e) {
         } catch {
             data = null;
         }
-
-        Swal.close();
 
         // Tratamento dos erros mais comuns
         if (!res.ok || !data || typeof data !== "object" || data === null) {
@@ -68,12 +73,8 @@ form.addEventListener('submit', async function (e) {
             } else if (text.includes("429") || text.toLowerCase().includes("limite")) {
                 msg = "Limite de consultas atingido. Tente novamente mais tarde!";
             }
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro',
-                text: msg
-            });
-            resultado.style.display = "none";
+            resultado.innerHTML = `<div style="text-align:center;font-size:1.1em;color:#b11;background:#fee;border-radius:6px;padding:20px 0;">${msg}</div>`;
+            resultado.style.display = "block";
             return;
         }
 
@@ -92,22 +93,10 @@ form.addEventListener('submit', async function (e) {
         const anoFabri = data.ano || "-";
         const anoModelo = data.anoModelo || data.ano_modelo || "-";
 
-        resultado.innerHTML = `
-            <div class="linha-dado"><span class="dado-label">Placa:</span> <span class="dado-valor">${parametro}</span></div>
-            <div class="linha-dado"><span class="dado-label">Marca:</span> <span class="dado-valor">${marca}</span></div>
-            <div class="linha-dado"><span class="dado-label">Modelo:</span> <span class="dado-valor">${modelo}</span></div>
-            <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
-            <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
-        `;
-        resultado.style.display = "block";
+        exibeResultado(parametro, marca, modelo, anoFabri, anoModelo);
     } catch (err) {
-        Swal.close();
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro',
-            text: 'Erro ao consultar a API.'
-        });
-        resultado.style.display = "none";
+        resultado.innerHTML = `<div style="text-align:center;font-size:1.1em;color:#b11;background:#fee;border-radius:6px;padding:20px 0;">Erro ao consultar a API.</div>`;
+        resultado.style.display = "block";
         console.error(err);
     }
 });
