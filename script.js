@@ -6,7 +6,6 @@ const btnNovaConsulta = document.getElementById('nova-consulta');
 const form = document.getElementById('consulta-form');
 const btnConsultar = document.getElementById('consultar-btn');
 
-// Estado inicial
 resultado.style.display = "none";
 btnNovaConsulta.style.display = "none";
 campoParametro.style.display = "block";
@@ -25,7 +24,6 @@ form.addEventListener('submit', async function (e) {
         return;
     }
 
-    // Exibe o carregando
     Swal.fire({
         title: 'Carregando...',
         text: 'Buscando informações, aguarde.',
@@ -38,14 +36,12 @@ form.addEventListener('submit', async function (e) {
 
     const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
 
-    // Esconde campo e botão consultar, mostra só nova consulta
     campoParametro.style.display = "none";
     btnConsultar.style.display = "none";
     btnNovaConsulta.style.display = "inline-block";
 
     try {
         const res = await fetch(url);
-
         let data;
         const text = await res.text();
         try {
@@ -56,7 +52,6 @@ form.addEventListener('submit', async function (e) {
 
         Swal.close();
 
-        // Tratamento dos erros mais comuns
         if (!res.ok || !data || typeof data !== "object" || data === null) {
             let msg = "Erro ao consultar a API.";
             if (text.includes("406") || text.toLowerCase().includes("sem resultados")) {
@@ -84,7 +79,7 @@ form.addEventListener('submit', async function (e) {
             marca = "VOLKSWAGEN";
         } else if (marcaNormalizada === "MBENZ") {
             marca = "Mercedes Benz";
-        } else if (marca === "CHEV"){
+        } else if (marca === "CHEV") {
             marca = "CHEVROLET";
         }
 
