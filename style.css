@@ -1,137 +1,92 @@
 body {
-  background: #f5f6fa;
+  background: #fff;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
 }
 
 .container {
-  max-width: 420px;
-  margin: 56px auto;
-  padding: 32px 24px;
+  max-width: 400px;
+  margin: 56px auto 0 auto;
+  padding: 32px 24px 24px 24px;
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 16px #00000010;
+  border-radius: 7px;
+  box-shadow: 0 2px 16px #00000015;
   text-align: center;
 }
 
 .titulo-consulta {
   font-weight: bold;
   font-size: 2.2em;
-  color: #111;
-  margin: 0 0 24px 0;
+  color: #0074D9;
+  margin-top: 0;
+  margin-bottom: 30px;
+  padding: 0 10px;
+  user-select: text;
 }
 
 form {
-  margin-bottom: 6px;
+  margin-bottom: 0;
 }
 
 input[type="text"] {
-  padding: 12px 10px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  width: 220px;
+  padding: 9px;
+  font-size: 1.15em;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  width: 180px;
+  margin-bottom: 18px;
   background: #fafafa;
-  text-align: center;
-  margin-bottom: 0;
-  outline: none;
-  box-sizing: border-box;
+  transition: border 0.2s;
 }
-
 input[type="text"]:focus {
-  border-color: #007bff;
-}
-
-.botoes {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 0;
-  flex-wrap: wrap;
-}
-
-button {
-  padding: 12px 32px;
-  font-size: 1em;
-  border: none;
-  border-radius: 6px;
-  background: #1976d2;
-  color: #fff;
-  cursor: pointer;
-  margin: 0 0 0 0;
-  transition: background 0.3s;
-}
-
-button#nova-consulta {
-  background: #007bff;
-  display: none;
-}
-
-button:active,
-button:focus {
+  border: 1.5px solid #0074D9;
   outline: none;
-}
-
-button:hover {
-  background: #1254a1;
+  background: #fff;
 }
 
 #resultado {
-  margin-top: 22px;
-  max-width: 100%;
-  background: #f0f0f0;
-  border-radius: 8px;
+  margin: 0 auto 0 auto;
+  max-width: 350px;
+  background: #f5faff;
+  border-radius: 5px;
   box-shadow: 0 2px 8px #00000010;
-  padding: 20px 12px 14px 12px;
+  padding: 18px 12px 14px 12px;
   font-size: 1.1em;
-  text-align: left;
   display: none;
+  text-align: left;
 }
-#resultado.show {
-  display: block;
-}
+
 .linha-dado {
   margin: 10px 0;
 }
 
 .dado-label {
+  color: #0074D9;
   font-weight: bold;
-  color: #222;
-  min-width: 110px;
-  display: inline-block;
 }
 
 .dado-valor {
-  color: #222;
-  margin-left: 3px;
+  color: #111;
+  margin-left: 8px;
   font-weight: normal;
-  word-break: break-all;
 }
 
-.rodape {
+.btn {
+  padding: 9px 18px;
+  font-size: 1em;
+  border: none;
+  border-radius: 4px;
+  background: #0074D9;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
   margin-top: 24px;
-  font-size: 0.95em;
-  color: #222;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: inline-block;
 }
 
-@media (max-width: 480px) {
-  .container {
-    margin: 24px 0;
-    padding: 20px 4vw;
-    border-radius: 13px;
-  }
-  input[type="text"] {
-    width: 100%;
-    font-size: 1.08em;
-    padding: 12px 8px;
-  }
-  #resultado {
-    padding: 14px 4vw 10px 4vw;
-    font-size: 1em;
-  }
+.btn:hover {
+  background: #005fa3;
 }
