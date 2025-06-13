@@ -6,15 +6,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1 class="titulo-consulta">Consulta de placa</h1>
+  <div class="container">
+    <h1 class="titulo-consulta">Consulta de placa</h1>
 
-  <form id="consulta-form">
-    <input type="text" id="parametro" placeholder="Digite a placa" autocomplete="off">
-    <button type="submit" id="consultar-btn">Consultar</button>
-    <button type="button" id="nova-consulta" style="display:none;">Nova Consulta</button>
-  </form>
+    <form id="consulta-form" autocomplete="off">
+      <input type="text" id="parametro" placeholder="Digite a placa" maxlength="8" required>
+      <button type="submit" id="consultar-btn">Consultar</button>
+      <button type="button" id="nova-consulta" style="display:none;">Nova Consulta</button>
+    </form>
 
-  <div id="resultado"></div>
+    <div id="resultado"></div>
+  </div>
 
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
