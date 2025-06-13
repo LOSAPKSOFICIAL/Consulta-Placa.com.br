@@ -6,7 +6,7 @@ const btnNovaConsulta = document.getElementById('nova-consulta');
 const form = document.getElementById('consulta-form');
 const btnConsultar = document.getElementById('consultar-btn');
 
-// Estado inicial: só campo e consultar
+// Estado inicial
 resultado.style.display = "none";
 btnNovaConsulta.style.display = "none";
 campoParametro.style.display = "block";
@@ -17,13 +17,24 @@ form.addEventListener('submit', async function (e) {
     const parametro = campoParametro.value.trim();
 
     if (!parametro) {
-        resultado.innerHTML = "Por favor, informe o parâmetro de pesquisa.";
-        resultado.style.display = "block";
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Por favor, informe a placa para consultar.'
+        });
         return;
     }
 
-    resultado.innerHTML = "Consultando...";
-    resultado.style.display = "block";
+    // Exibe o carregando
+    Swal.fire({
+        title: 'Carregando...',
+        text: 'Buscando informações, aguarde.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
 
     const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
 
@@ -36,13 +47,14 @@ form.addEventListener('submit', async function (e) {
         const res = await fetch(url);
 
         let data;
-        // Tenta sempre ler como texto antes de parsear como JSON
         const text = await res.text();
         try {
             data = JSON.parse(text);
         } catch {
             data = null;
         }
+
+        Swal.close();
 
         // Tratamento dos erros mais comuns
         if (!res.ok || !data || typeof data !== "object" || data === null) {
@@ -56,7 +68,12 @@ form.addEventListener('submit', async function (e) {
             } else if (text.includes("429") || text.toLowerCase().includes("limite")) {
                 msg = "Limite de consultas atingido. Tente novamente mais tarde!";
             }
-            resultado.innerHTML = msg;
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: msg
+            });
+            resultado.style.display = "none";
             return;
         }
 
@@ -82,8 +99,15 @@ form.addEventListener('submit', async function (e) {
             <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
             <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
         `;
+        resultado.style.display = "block";
     } catch (err) {
-        resultado.innerHTML = "Erro ao consultar a API.";
+        Swal.close();
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao consultar a API.'
+        });
+        resultado.style.display = "none";
         console.error(err);
     }
 });
