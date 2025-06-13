@@ -10,7 +10,7 @@ const btnConsultar = document.getElementById('consultar-btn');
 let alterna = false;
 setInterval(() => {
   if (document.activeElement !== campoParametro && campoParametro.value === '') {
-    campoParametro.setAttribute('placeholder', alterna ? 'ABC1234' : 'ABC1C34');
+    campoParametro.setAttribute('placeholder', alterna ? 'ABC1234' : 'ABC1C34 : EXE2443: EXE2E43: ALT2334: ALT2D34');
     alterna = !alterna;
   }
 }, 1800);
