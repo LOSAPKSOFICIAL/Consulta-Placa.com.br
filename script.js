@@ -6,8 +6,11 @@ const btnNovaConsulta = document.getElementById('nova-consulta');
 const form = document.getElementById('consulta-form');
 const btnConsultar = document.getElementById('consultar-btn');
 
+// Estado inicial
 resultado.style.display = "none";
 btnNovaConsulta.style.display = "none";
+campoParametro.style.display = "block";
+btnConsultar.style.display = "inline-block";
 
 form.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -22,22 +25,68 @@ form.addEventListener('submit', async function (e) {
         return;
     }
 
-    resultado.innerHTML = "Consultando...";
-    resultado.style.display = "block";
+    // Exibe o carregando
+    Swal.fire({
+        title: 'Carregando...',
+        text: 'Buscando informações, aguarde.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
+
+    // Esconde campo e botão consultar, mostra só nova consulta (mas o grupo de botões permanece)
     campoParametro.style.display = "none";
     btnConsultar.style.display = "none";
     btnNovaConsulta.style.display = "inline-block";
 
-    const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
-
     try {
         const res = await fetch(url);
-        const data = await res.json();
+
+        let data;
+        const text = await res.text();
+        try {
+            data = JSON.parse(text);
+        } catch {
+            data = null;
+        }
+
+        Swal.close();
+
+        // Tratamento dos erros mais comuns
+        if (!res.ok || !data || typeof data !== "object" || data === null) {
+            let msg = "Erro ao consultar a API.";
+            if (text.includes("406") || text.toLowerCase().includes("sem resultados")) {
+                msg = "Não foram encontrados resultados para a placa informada.";
+            } else if (text.includes("401") || text.toLowerCase().includes("placa inválida")) {
+                msg = "Placa inválida!";
+            } else if (text.includes("402") || text.toLowerCase().includes("token inválido")) {
+                msg = "Token inválido!";
+            } else if (text.includes("429") || text.toLowerCase().includes("limite")) {
+                msg = "Limite de consultas atingido. Tente novamente mais tarde!";
+            }
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: msg
+            });
+            resultado.style.display = "none";
+            return;
+        }
 
         let marca = data.MARCA || data.marca || "-";
-        if (marca === "VW") marca = "VOLKSWAGEN";
-        else if ((marca || "").replace(/\./g, '').toUpperCase() === "MBENZ") marca = "Mercedes Benz";
-        else if (marca === "CHEV") marca = "CHEVROLET";
+        const marcaNormalizada = marca.replace(/\./g, '').toUpperCase();
+
+        if (marca === "VW") {
+            marca = "VOLKSWAGEN";
+        } else if (marcaNormalizada === "MBENZ") {
+            marca = "Mercedes Benz";
+        } else if (marca === "CHEV"){
+            marca = "CHEVROLET";
+        }
 
         const modelo = data.MODELO || data.modelo || "-";
         const anoFabri = data.ano || "-";
@@ -50,8 +99,15 @@ form.addEventListener('submit', async function (e) {
             <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
             <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
         `;
+        resultado.style.display = "block";
     } catch (err) {
-        resultado.innerHTML = "Erro ao consultar a API.";
+        Swal.close();
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao consultar a API.'
+        });
+        resultado.style.display = "none";
         console.error(err);
     }
 });
@@ -59,7 +115,7 @@ form.addEventListener('submit', async function (e) {
 btnNovaConsulta.addEventListener('click', function () {
     campoParametro.value = '';
     resultado.style.display = "none";
-    campoParametro.style.display = "inline-block";
+    campoParametro.style.display = "block";
     btnConsultar.style.display = "inline-block";
     btnNovaConsulta.style.display = "none";
     campoParametro.focus();
