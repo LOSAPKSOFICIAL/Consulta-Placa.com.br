@@ -16,7 +16,7 @@ html, body {
 }
 
 .container {
-  max-width: 500px;
+  max-width: 100px;
   width: 100%;
   background: #fff;
   border-radius: 16px;
@@ -74,7 +74,6 @@ input[type="text"]:focus {
 }
 
 #resultado {
-  width: 100%;
   max-width: 380px;
   min-width: 200px;
   display: none;
