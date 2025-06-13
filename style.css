@@ -1,13 +1,24 @@
-body {
-  background: #f4f5f7;
-  font-family: Arial, sans-serif;
+body, html {
+  height: 100%;
   margin: 0;
   padding: 0;
+  background: #f4f5f7;
+  font-family: Arial, sans-serif;
+  width: 100vw;
+}
+
+/* Novo wrapper para centralizar vertical e horizontal */
+.centro {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
   max-width: 400px;
-  margin: 56px auto 0 auto;
+  width: 100%;
+  margin: 0;
   padding: 32px 24px 24px 24px;
   background: #fff;
   border-radius: 16px;
@@ -27,6 +38,7 @@ body {
 
 form {
   margin-bottom: 0;
+  text-align: left;
 }
 
 input[type="text"] {
@@ -39,9 +51,9 @@ input[type="text"] {
   background: #fafafa;
   transition: border 0.2s;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  margin-left: 0; /* Alinha no início */
+  margin-right: 0;
+  text-align: left;
 }
 input[type="text"]:focus {
   border: 1.5px solid #0074D9;
