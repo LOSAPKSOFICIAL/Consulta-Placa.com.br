@@ -16,12 +16,12 @@ html, body {
 }
 
 .container {
-  max-width: 100px;
-  width: 100%;
+  max-width: 375px; /* 75% de 500px */
+  width: 96vw;
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 16px #00000015;
-  padding: 32px 24px 24px 24px;
+  border-radius: 12px; /* 75% de 16px */
+  box-shadow: 0 2px 12px #00000015;
+  padding: 24px 14px 16px 14px; /* 75% do padding original */
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -31,11 +31,11 @@ html, body {
 
 .titulo-consulta {
   font-weight: bold;
-  font-size: 2.7em;
+  font-size: 2em; /* 75% de 2.7em */
   color: #111;
   margin-top: 0;
-  margin-bottom: 30px;
-  padding: 0 10px;
+  margin-bottom: 22px; /* 75% de 30px */
+  padding: 0 8px;
   user-select: text;
   text-align: center;
 }
@@ -48,14 +48,14 @@ form {
 }
 
 input[type="text"] {
-  padding: 16px 18px;
-  font-size: 2em;
+  padding: 12px 13px; /* 75% do padding original */
+  font-size: 1.5em;   /* 75% de 2em */
   border: 1px solid #bdbdbd;
-  border-radius: 7px;
+  border-radius: 5px; /* 75% de 7px */
   width: 85%;
-  min-width: 220px;
-  max-width: 400px;
-  margin-bottom: 32px;
+  min-width: 165px;   /* 75% de 220px */
+  max-width: 300px;   /* 75% de 400px */
+  margin-bottom: 24px; /* 75% de 32px */
   background: #fafafa;
   transition: border 0.2s;
   text-align: left;
@@ -63,8 +63,7 @@ input[type="text"] {
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
-  text-transform: uppercase; /* Exibe sempre maiúsculo */
-  /* Para dispositivos móveis, dá espaço mais confortável */
+  text-transform: uppercase;
 }
 
 input[type="text"]:focus {
@@ -74,21 +73,21 @@ input[type="text"]:focus {
 }
 
 #resultado {
-  width: 100%;
-  max-width: 380px;
-  min-width: 200px;
+  min-width: 120px;     /* 75% de 160px */
+  max-width: 210px;     /* 75% de 280px */
+  width: auto;
   display: none;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   background: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #00000010;
-  font-size: 1.13em;
-  margin-bottom: 22px;
+  border-radius: 6px;    /* 75% de 8px */
+  box-shadow: 0 2px 6px #00000010;
+  font-size: 0.85em;    /* 75% de 1.13em */
+  margin-bottom: 12px;  /* 75% de 16px */
   margin-top: 0;
-  padding: 18px 12px 14px 12px;
-  /* Responsivo proporcional: altura e largura conforme conteúdo */
+  padding: 7px 6px 6px 6px; /* 75% de 10px 8px 8px 8px */
+  word-break: break-word;
 }
 
 #resultado.visible {
@@ -96,12 +95,12 @@ input[type="text"]:focus {
 }
 
 .linha-dado {
-  margin: 12px 0;
+  margin: 7px 0;               /* 75% de 12px */
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 340px;
-  word-break: break-word;
+  max-width: 188px;            /* 75% de 250px */
+  font-size: 1em;
 }
 
 .dado-label {
@@ -113,8 +112,8 @@ input[type="text"]:focus {
 .dado-valor {
   color: #222;
   font-weight: normal;
-  margin-left: 12px;
-  text-transform: uppercase; /* Resultados em maiúsculo também */
+  margin-left: 6px;           /* 75% de 8px */
+  text-transform: uppercase;
 }
 
 .grupo-botoes {
@@ -126,10 +125,10 @@ input[type="text"]:focus {
 }
 
 .btn {
-  padding: 18px 40px;
-  font-size: 2em;
+  padding: 8px 17px;          /* 75% de 18px 40px */
+  font-size: 0.82em;          /* 75% de 1.1em */
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;         /* 75% de 7px */
   background: #1976ed;
   color: #fff;
   cursor: pointer;
@@ -152,8 +151,8 @@ input[type="text"]:focus {
 }
 
 .assinatura {
-  margin-top: 35px;
-  font-size: 1.3em;
+  margin-top: 15px;           /* 75% de 20px */
+  font-size: 0.75em;          /* 75% de 1em */
   color: #222;
   opacity: 1;
   text-align: center;
@@ -162,41 +161,41 @@ input[type="text"]:focus {
   user-select: text;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 540px) {
   .container {
-    max-width: 99vw;
-    padding: 16px 2vw 18px 2vw;
+    max-width: 97vw;
+    padding: 9px 2vw 9px 2vw; /* 75% do mobile padding anterior */
   }
   input[type="text"] {
-    width: 98vw;
+    width: 97vw;
     min-width: 0;
-    max-width: 100%;
-    font-size: 1.3em;
-    padding: 14px 12px;
-    margin-bottom: 24px;
+    max-width: 99vw;
+    font-size: 0.75em;
+    padding: 6px 4px;
+    margin-bottom: 9px;
   }
   #resultado {
-    max-width: 99vw;
+    max-width: 98vw;
     min-width: 0;
-    font-size: 1em;
-    padding: 10px 5px 10px 5px;
+    font-size: 0.7em;
+    padding: 5px 2px 5px 2px;
   }
   .linha-dado {
-    font-size: 1em;
+    font-size: 0.75em;
     max-width: 99vw;
     word-break: break-word;
   }
   .btn {
-    padding: 13px 0;
-    font-size: 1.2em;
-    width: 90vw;
-    max-width: 350px;
+    padding: 6px 0;
+    font-size: 0.75em;
+    width: 98vw;
+    max-width: 180px;
   }
   .assinatura {
-    font-size: 1em;
-    margin-top: 20px;
+    font-size: .72em;
+    margin-top: 9px;
   }
   .titulo-consulta {
-    font-size: 2em;
+    font-size: 0.9em;
   }
 }
