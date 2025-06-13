@@ -23,13 +23,15 @@ campoParametro.addEventListener('input', function () {
 });
 
 resultado.style.display = "none";
+resultado.classList.remove("visible");
 btnNovaConsulta.style.display = "none";
 campoParametro.style.display = "block";
 btnConsultar.style.display = "inline-block";
 
 function exibeCarregando() {
-    resultado.style.display = "block";
     resultado.innerHTML = `<div style="text-align:center;font-size:1.18em;color:#444;background:#f4f5f7;border-radius:6px;padding:22px 0;">Consultando...</div>`;
+    resultado.classList.add("visible");
+    resultado.style.display = "flex";
 }
 
 function exibeResultado(parametro, marca, modelo, anoFabri, anoModelo) {
@@ -40,7 +42,8 @@ function exibeResultado(parametro, marca, modelo, anoFabri, anoModelo) {
         <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
         <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
     `;
-    resultado.style.display = "block";
+    resultado.classList.add("visible");
+    resultado.style.display = "flex";
 }
 
 form.addEventListener('submit', async function (e) {
@@ -75,6 +78,7 @@ form.addEventListener('submit', async function (e) {
             data = null;
         }
 
+        // Tratamento dos erros mais comuns
         if (!res.ok || !data || typeof data !== "object" || data === null) {
             let msg = "Erro ao consultar a API.";
             if (text.includes("406") || text.toLowerCase().includes("sem resultados")) {
@@ -86,8 +90,13 @@ form.addEventListener('submit', async function (e) {
             } else if (text.includes("429") || text.toLowerCase().includes("limite")) {
                 msg = "Limite de consultas atingido. Tente novamente mais tarde!";
             }
-            resultado.innerHTML = `<div style="text-align:center;font-size:1.1em;color:#b11;background:#fee;border-radius:6px;padding:20px 0;">${msg}</div>`;
-            resultado.style.display = "block";
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: msg
+            });
+            resultado.classList.remove("visible");
+            resultado.style.display = "none";
             return;
         }
 
@@ -108,14 +117,20 @@ form.addEventListener('submit', async function (e) {
 
         exibeResultado(parametro, marca, modelo, anoFabri, anoModelo);
     } catch (err) {
-        resultado.innerHTML = `<div style="text-align:center;font-size:1.1em;color:#b11;background:#fee;border-radius:6px;padding:20px 0;">Erro ao consultar a API.</div>`;
-        resultado.style.display = "block";
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao consultar a API.'
+        });
+        resultado.classList.remove("visible");
+        resultado.style.display = "none";
         console.error(err);
     }
 });
 
 btnNovaConsulta.addEventListener('click', function () {
     campoParametro.value = '';
+    resultado.classList.remove("visible");
     resultado.style.display = "none";
     campoParametro.style.display = "block";
     btnConsultar.style.display = "inline-block";
