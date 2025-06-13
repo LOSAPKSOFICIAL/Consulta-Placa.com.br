@@ -16,12 +16,12 @@ html, body {
 }
 
 .container {
-  max-width: 375px; /* 75% de 500px */
+  max-width: 375px;
   width: 96vw;
   background: #fff;
-  border-radius: 12px; /* 75% de 16px */
+  border-radius: 12px;
   box-shadow: 0 2px 12px #00000015;
-  padding: 24px 14px 16px 14px; /* 75% do padding original */
+  padding: 24px 14px 16px 14px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -31,10 +31,10 @@ html, body {
 
 .titulo-consulta {
   font-weight: bold;
-  font-size: 2em; /* 75% de 2.7em */
+  font-size: 2em;
   color: #111;
   margin-top: 0;
-  margin-bottom: 22px; /* 75% de 30px */
+  margin-bottom: 22px;
   padding: 0 8px;
   user-select: text;
   text-align: center;
@@ -47,15 +47,16 @@ form {
   align-items: center;
 }
 
+/* INPUT */
 input[type="text"] {
-  padding: 12px 13px; /* 75% do padding original */
-  font-size: 1.5em;   /* 75% de 2em */
+  padding: 15px 16px;           /* 12px*1.25, 13px*1.25 */
+  font-size: 1.875em;           /* 1.5em*1.25 */
   border: 1px solid #bdbdbd;
-  border-radius: 5px; /* 75% de 7px */
+  border-radius: 6.25px;        /* 5px*1.25 */
   width: 85%;
-  min-width: 165px;   /* 75% de 220px */
-  max-width: 300px;   /* 75% de 400px */
-  margin-bottom: 24px; /* 75% de 32px */
+  min-width: 206px;             /* 165px*1.25 */
+  max-width: 375px;             /* 300px*1.25 */
+  margin-bottom: 30px;          /* 24px*1.25 */
   background: #fafafa;
   transition: border 0.2s;
   text-align: left;
@@ -72,21 +73,22 @@ input[type="text"]:focus {
   background: #fff;
 }
 
+/* RESULTADO */
 #resultado {
-  min-width: 120px;     /* 75% de 160px */
-  max-width: 210px;     /* 75% de 280px */
+  min-width: 150px;            /* 120px*1.25 */
+  max-width: 263px;            /* 210px*1.25 */
   width: auto;
   display: none;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   background: #f8f8f8;
-  border-radius: 6px;    /* 75% de 8px */
-  box-shadow: 0 2px 6px #00000010;
-  font-size: 0.85em;    /* 75% de 1.13em */
-  margin-bottom: 12px;  /* 75% de 16px */
+  border-radius: 7.5px;         /* 6px*1.25 */
+  box-shadow: 0 2px 7.5px #00000010;
+  font-size: 1.0625em;          /* 0.85em*1.25 */
+  margin-bottom: 15px;          /* 12px*1.25 */
   margin-top: 0;
-  padding: 7px 6px 6px 6px; /* 75% de 10px 8px 8px 8px */
+  padding: 8.75px 7.5px 7.5px 7.5px; /* 7px*1.25, 6px*1.25 */
   word-break: break-word;
 }
 
@@ -94,13 +96,14 @@ input[type="text"]:focus {
   display: flex;
 }
 
+/* CAMPOS DE DADOS */
 .linha-dado {
-  margin: 7px 0;               /* 75% de 12px */
+  margin: 8.75px 0;            /* 7px*1.25 */
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 188px;            /* 75% de 250px */
-  font-size: 1em;
+  max-width: 235px;            /* 188px*1.25 */
+  font-size: 1.25em;           /* 1em*1.25 */
 }
 
 .dado-label {
@@ -112,10 +115,11 @@ input[type="text"]:focus {
 .dado-valor {
   color: #222;
   font-weight: normal;
-  margin-left: 6px;           /* 75% de 8px */
+  margin-left: 7.5px;          /* 6px*1.25 */
   text-transform: uppercase;
 }
 
+/* BUTTONS */
 .grupo-botoes {
   display: flex;
   justify-content: center;
@@ -125,10 +129,10 @@ input[type="text"]:focus {
 }
 
 .btn {
-  padding: 8px 17px;          /* 75% de 18px 40px */
-  font-size: 0.82em;          /* 75% de 1.1em */
+  padding: 10px 21px;          /* 8px*1.25, 17px*1.25 */
+  font-size: 1.025em;          /* 0.82em*1.25 */
   border: none;
-  border-radius: 5px;         /* 75% de 7px */
+  border-radius: 6.25px;       /* 5px*1.25 */
   background: #1976ed;
   color: #fff;
   cursor: pointer;
@@ -151,8 +155,8 @@ input[type="text"]:focus {
 }
 
 .assinatura {
-  margin-top: 15px;           /* 75% de 20px */
-  font-size: 0.75em;          /* 75% de 1em */
+  margin-top: 19px;            /* 15px*1.25 */
+  font-size: 0.9375em;         /* 0.75em*1.25 */
   color: #222;
   opacity: 1;
   text-align: center;
@@ -164,38 +168,38 @@ input[type="text"]:focus {
 @media (max-width: 540px) {
   .container {
     max-width: 97vw;
-    padding: 9px 2vw 9px 2vw; /* 75% do mobile padding anterior */
+    padding: 11px 2vw 11px 2vw; /* 9px*1.25 */
   }
   input[type="text"] {
     width: 97vw;
     min-width: 0;
     max-width: 99vw;
-    font-size: 0.75em;
-    padding: 6px 4px;
-    margin-bottom: 9px;
+    font-size: 0.9375em;      /* 0.75em*1.25 */
+    padding: 7.5px 5px;       /* 6px*1.25, 4px*1.25 */
+    margin-bottom: 11px;      /* 9px*1.25 */
   }
   #resultado {
     max-width: 98vw;
     min-width: 0;
-    font-size: 0.7em;
-    padding: 5px 2px 5px 2px;
+    font-size: 0.875em;       /* 0.7em*1.25 */
+    padding: 6.25px 2.5px 6.25px 2.5px; /* 5px*1.25, 2px*1.25 */
   }
   .linha-dado {
-    font-size: 0.75em;
+    font-size: 0.9375em;      /* 0.75em*1.25 */
     max-width: 99vw;
     word-break: break-word;
   }
   .btn {
-    padding: 6px 0;
-    font-size: 0.75em;
+    padding: 7.5px 0;
+    font-size: 0.9375em;      /* 0.75em*1.25 */
     width: 98vw;
-    max-width: 180px;
+    max-width: 225px;         /* 180px*1.25 */
   }
   .assinatura {
-    font-size: .72em;
-    margin-top: 9px;
+    font-size: .9em;
+    margin-top: 11px;
   }
   .titulo-consulta {
-    font-size: 0.9em;
+    font-size: 1.125em;       /* 0.9em*1.25 */
   }
 }
