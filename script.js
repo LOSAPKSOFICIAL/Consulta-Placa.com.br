@@ -17,24 +17,13 @@ form.addEventListener('submit', async function (e) {
     const parametro = campoParametro.value.trim();
 
     if (!parametro) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro',
-            text: 'Por favor, informe o parâmetro de pesquisa.'
-        });
+        resultado.innerHTML = "Por favor, informe o parâmetro de pesquisa.";
+        resultado.style.display = "block";
         return;
     }
 
-    // Exibe o carregando
-    Swal.fire({
-        title: 'Carregando...',
-        text: 'Buscando informações, aguarde.',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        didOpen: () => {
-            Swal.showLoading();
-        }
-    });
+    resultado.innerHTML = "Consultando...";
+    resultado.style.display = "block";
 
     const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
 
@@ -55,9 +44,6 @@ form.addEventListener('submit', async function (e) {
             data = null;
         }
 
-        // Fecha o modal de carregando
-        Swal.close();
-
         // Tratamento dos erros mais comuns
         if (!res.ok || !data || typeof data !== "object" || data === null) {
             let msg = "Erro ao consultar a API.";
@@ -70,12 +56,7 @@ form.addEventListener('submit', async function (e) {
             } else if (text.includes("429") || text.toLowerCase().includes("limite")) {
                 msg = "Limite de consultas atingido. Tente novamente mais tarde!";
             }
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro',
-                text: msg
-            });
-            resultado.style.display = "none";
+            resultado.innerHTML = msg;
             return;
         }
 
@@ -101,15 +82,8 @@ form.addEventListener('submit', async function (e) {
             <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
             <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
         `;
-        resultado.style.display = "block";
     } catch (err) {
-        Swal.close();
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro',
-            text: 'Erro ao consultar a API.'
-        });
-        resultado.style.display = "none";
+        resultado.innerHTML = "Erro ao consultar a API.";
         console.error(err);
     }
 });
