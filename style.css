@@ -64,6 +64,7 @@ input[type="text"] {
   margin-right: auto;
   box-sizing: border-box;
   text-transform: uppercase; /* Exibe sempre maiúsculo */
+  /* Para dispositivos móveis, dá espaço mais confortável */
 }
 
 input[type="text"]:focus {
@@ -74,9 +75,10 @@ input[type="text"]:focus {
 
 #resultado {
   width: 100%;
-  min-height: 220px;
+  max-width: 380px;
+  min-width: 200px;
   display: none;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   background: #f8f8f8;
@@ -85,6 +87,8 @@ input[type="text"]:focus {
   font-size: 1.13em;
   margin-bottom: 22px;
   margin-top: 0;
+  padding: 18px 12px 14px 12px;
+  /* Responsivo proporcional: altura e largura conforme conteúdo */
 }
 
 #resultado.visible {
@@ -97,17 +101,20 @@ input[type="text"]:focus {
   justify-content: space-between;
   width: 100%;
   max-width: 340px;
+  word-break: break-word;
 }
 
 .dado-label {
   color: #222;
   font-weight: bold;
+  flex-shrink: 0;
 }
 
 .dado-valor {
   color: #222;
   font-weight: normal;
   margin-left: 12px;
+  text-transform: uppercase; /* Resultados em maiúsculo também */
 }
 
 .grupo-botoes {
@@ -167,6 +174,17 @@ input[type="text"]:focus {
     font-size: 1.3em;
     padding: 14px 12px;
     margin-bottom: 24px;
+  }
+  #resultado {
+    max-width: 99vw;
+    min-width: 0;
+    font-size: 1em;
+    padding: 10px 5px 10px 5px;
+  }
+  .linha-dado {
+    font-size: 1em;
+    max-width: 99vw;
+    word-break: break-word;
   }
   .btn {
     padding: 13px 0;
