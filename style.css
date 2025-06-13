@@ -63,6 +63,7 @@ input[type="text"] {
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
+  text-transform: uppercase; /* Exibe sempre maiúsculo */
 }
 
 input[type="text"]:focus {
