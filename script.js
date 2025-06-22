@@ -6,45 +6,11 @@ const btnNovaConsulta = document.getElementById('nova-consulta');
 const form = document.getElementById('consulta-form');
 const btnConsultar = document.getElementById('consultar-btn');
 
-// Placeholder dinâmico
-let alterna = 0;
-const placeholders = [
-  'ABC1234',
-  'ABC1C34',
-  'EXE2443',
-  'EXE2E43',
-  'ALT2334',
-  'ALT2D34'
-];
-setInterval(() => {
-  if (document.activeElement !== campoParametro && campoParametro.value === '') {
-    campoParametro.setAttribute('placeholder', placeholders[alterna]);
-    alterna = (alterna + 1) % placeholders.length;
-  }
-}, 3000);
-
-// Força maiúsculo ao digitar ou colar (sem impedir digitação minúscula)
-campoParametro.addEventListener('input', function () {
-  this.value = this.value.toUpperCase().slice(0, 7);
-});
-
+// Estado inicial
 resultado.style.display = "none";
-resultado.classList.remove("visible");
 btnNovaConsulta.style.display = "none";
 campoParametro.style.display = "block";
 btnConsultar.style.display = "inline-block";
-
-function exibeResultado(parametro, marca, modelo, anoFabri, anoModelo) {
-    resultado.innerHTML = `
-        <div class="linha-dado"><span class="dado-label">Placa:</span> <span class="dado-valor">${parametro}</span></div>
-        <div class="linha-dado"><span class="dado-label">Marca:</span> <span class="dado-valor">${marca}</span></div>
-        <div class="linha-dado"><span class="dado-label">Modelo:</span> <span class="dado-valor">${modelo}</span></div>
-        <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
-        <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
-    `;
-    resultado.classList.add("visible");
-    resultado.style.display = "flex";
-}
 
 form.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -59,16 +25,10 @@ form.addEventListener('submit', async function (e) {
         return;
     }
 
-    campoParametro.style.display = "none";
-    btnConsultar.style.display = "none";
-    btnNovaConsulta.style.display = "inline-block";
-    resultado.classList.remove("visible");
-    resultado.style.display = "none";
-
-    // SweetAlert carregando
+    // Exibe o carregando
     Swal.fire({
-        title: 'Buscando informações',
-        text: 'Aguarde...',
+        title: 'Carregando...',
+        text: 'Buscando informações, aguarde.',
         allowOutsideClick: false,
         allowEscapeKey: false,
         didOpen: () => {
@@ -77,6 +37,11 @@ form.addEventListener('submit', async function (e) {
     });
 
     const url = `https://wdapi2.com.br/consulta/${encodeURIComponent(parametro)}/${SEU_TOKEN}`;
+
+    // Esconde campo e botão consultar, mostra só nova consulta (mas o grupo de botões permanece)
+    campoParametro.style.display = "none";
+    btnConsultar.style.display = "none";
+    btnNovaConsulta.style.display = "inline-block";
 
     try {
         const res = await fetch(url);
@@ -108,7 +73,6 @@ form.addEventListener('submit', async function (e) {
                 title: 'Erro',
                 text: msg
             });
-            resultado.classList.remove("visible");
             resultado.style.display = "none";
             return;
         }
@@ -127,8 +91,21 @@ form.addEventListener('submit', async function (e) {
         const modelo = data.MODELO || data.modelo || "-";
         const anoFabri = data.ano || "-";
         const anoModelo = data.anoModelo || data.ano_modelo || "-";
+        // Valor Molicar conforme documentação
+        const valorMolicar = data.fipe && data.fipe.dados && data.fipe.dados.length > 0
+            ? data.fipe.dados[0].texto_valor
+            : "-";
 
-        exibeResultado(parametro, marca, modelo, anoFabri, anoModelo);
+        resultado.innerHTML = `
+            <div class="linha-dado"><span class="dado-label">Placa:</span> <span class="dado-valor">${parametro}</span></div>
+            <div class="linha-dado"><span class="dado-label">Marca:</span> <span class="dado-valor">${marca}</span></div>
+            <div class="linha-dado"><span class="dado-label">Modelo:</span> <span class="dado-valor">${modelo}</span></div>
+            <div class="linha-dado"><span class="dado-label">Ano Fabricação:</span> <span class="dado-valor">${anoFabri}</span></div>
+            <div class="linha-dado"><span class="dado-label">Ano Modelo:</span> <span class="dado-valor">${anoModelo}</span></div>
+            <div class="linha-dado"><span class="dado-label">Valor Molicar:</span> <span class="dado-valor">${valorMolicar}</span></div>
+        `;
+        resultado.style.display = "block";
+        resultado.classList.add("visible");
     } catch (err) {
         Swal.close();
         Swal.fire({
@@ -136,7 +113,6 @@ form.addEventListener('submit', async function (e) {
             title: 'Erro',
             text: 'Erro ao consultar a API.'
         });
-        resultado.classList.remove("visible");
         resultado.style.display = "none";
         console.error(err);
     }
@@ -144,8 +120,8 @@ form.addEventListener('submit', async function (e) {
 
 btnNovaConsulta.addEventListener('click', function () {
     campoParametro.value = '';
-    resultado.classList.remove("visible");
     resultado.style.display = "none";
+    resultado.classList.remove("visible");
     campoParametro.style.display = "block";
     btnConsultar.style.display = "inline-block";
     btnNovaConsulta.style.display = "none";
