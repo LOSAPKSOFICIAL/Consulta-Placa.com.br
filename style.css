@@ -204,6 +204,8 @@ input[type="text"]:focus {
   }
 }
 
+/* ... (todo o resto mantém igual) ... */
+
 /* ---- ALERT/AVISO COMPONENT ---- */
 .aviso-fixo {
   display: flex;
@@ -217,8 +219,8 @@ input[type="text"]:focus {
   border: 1.5px solid #b71c1c;
   box-shadow: 0 2px 10px #ff525226;
   padding: 22px 20px 18px 20px;
-  max-width: 50px;
-  width: 50%;
+  width: 100%;           /* <-- Corrigido */
+  max-width: none;       /* <-- Corrigido */
   margin: 24px auto 0 auto; /* espaçamento superior igual ao dos botões */
   transition: box-shadow 0.18s;
   position: relative;
@@ -245,7 +247,8 @@ input[type="text"]:focus {
 /* Responsividade para mobile */
 @media (max-width: 540px) {
   .aviso-fixo {
-    max-width: 99vw;
+    width: 100%;        /* <-- Corrigido */
+    max-width: none;    /* <-- Corrigido */
     padding: 13px 5vw 13px 5vw;
     font-size: 0.99em;
     border-radius: 8px;
