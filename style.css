@@ -203,3 +203,24 @@ input[type="text"]:focus {
     font-size: 1.125em;
   }
 }
+.aviso-fixo {
+  display: flex;
+  align-items: center;
+  background: #ff4e4e22; /* vermelho suave */
+  color: #fff;
+  border-radius: 50px;
+  padding: 16px 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  border: 2px solid #ff4e4e;
+  box-shadow: 0 2px 8px #0001;
+}
+
+.aviso-icone {
+  font-size: 2em;
+  margin-right: 16px;
+}
+
+.aviso-texto {
+  color: #fff;
+}
