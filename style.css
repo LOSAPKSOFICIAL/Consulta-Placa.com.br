@@ -204,30 +204,28 @@ input[type="text"]:focus {
   }
 }
 
-/* ... (todo o resto mantém igual) ... */
-
-/* ---- ALERT/AVISO COMPONENT ---- */
 .aviso-fixo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* agora em linha para um aviso mais retangular */
   align-items: center;
   justify-content: flex-start;
   gap: 12px;
   background: linear-gradient(95deg, #ff5252 85%, #b71c1c 100%);
   color: #fff;
-  border-radius: 14px;
+  border-radius: 10px;
   border: 1.5px solid #b71c1c;
   box-shadow: 0 2px 10px #ff525226;
-  padding: 22px 20px 18px 20px;
-  width: 100%;           /* <-- Corrigido */
-  max-width: none;       /* <-- Corrigido */
-  margin: 24px auto 0 auto; /* espaçamento superior igual ao dos botões */
+  padding: 12px 18px;      /* padding menor */
+  width: 100%;
+  max-width: none;
+  min-height: 48px;        /* altura mínima para não ficar achatado */
+  margin: 24px auto 0 auto;
   transition: box-shadow 0.18s;
   position: relative;
 }
 
 .aviso-fixo .aviso-icone {
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 1;
   display: block;
   filter: drop-shadow(0 1px 2px #b71c1c88);
@@ -236,25 +234,24 @@ input[type="text"]:focus {
 
 .aviso-fixo .aviso-texto {
   color: #fff;
-  font-size: 1.08em;
-  text-align: center;
+  font-size: 1em;
+  text-align: left;
   font-weight: 500;
   line-height: 1.45;
   letter-spacing: 0.01em;
   word-break: break-word;
 }
-
-/* Responsividade para mobile */
 @media (max-width: 540px) {
   .aviso-fixo {
-    width: 100%;        /* <-- Corrigido */
-    max-width: none;    /* <-- Corrigido */
-    padding: 13px 5vw 13px 5vw;
+    width: 100%;
+    max-width: none;
+    padding: 8px 4vw;
     font-size: 0.99em;
-    border-radius: 8px;
+    border-radius: 7px;
     gap: 7px;
+    min-height: 42px;
   }
   .aviso-fixo .aviso-icone {
-    font-size: 1.7em;
+    font-size: 1.4em;
   }
 }
