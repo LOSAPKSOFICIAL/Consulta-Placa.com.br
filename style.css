@@ -92,8 +92,6 @@ input[type="text"]:focus {
   overflow-x: auto;               /* permite rolagem se valor for muito longo */
 }
 
-/* Remova word-break de #resultado! */
-
 /* CAMPOS DE DADOS */
 .linha-dado {
   margin: 8.75px 0;
@@ -164,6 +162,46 @@ input[type="text"]:focus {
   user-select: text;
 }
 
+/* AVISO FIXO */
+.aviso-fixo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  background: linear-gradient(95deg, #ff5252 85%, #b71c1c 100%);
+  color: #fff;
+  border-radius: 10px;
+  border: 1.5px solid #b71c1c;
+  box-shadow: 0 2px 10px #ff525226;
+  padding: 12px 18px;
+  width: 100%;
+  max-width: 375px;    /* igual ao container */
+  min-height: 48px;
+  margin: 24px 0 0 0;  /* apenas margem superior */
+  transition: box-shadow 0.18s;
+  position: relative;
+}
+
+.aviso-fixo .aviso-icone {
+  font-size: 2rem;
+  line-height: 1;
+  display: block;
+  filter: drop-shadow(0 1px 2px #b71c1c88);
+  user-select: none;
+}
+
+.aviso-fixo .aviso-texto {
+  color: #fff;
+  font-size: 1em;
+  text-align: left;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  word-break: break-word;
+}
+
+/* RESPONSIVO */
 @media (max-width: 540px) {
   .container {
     max-width: 97vw;
@@ -202,49 +240,9 @@ input[type="text"]:focus {
   .titulo-consulta {
     font-size: 1.125em;
   }
-}
-
-.aviso-fixo {
-  display: flex;
-  flex-direction: row; /* agora em linha para um aviso mais retangular */
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  background: linear-gradient(95deg, #ff5252 85%, #b71c1c 100%);
-  color: #fff;
-  border-radius: 10px;
-  border: 1.5px solid #b71c1c;
-  box-shadow: 0 2px 10px #ff525226;
-  padding: 12px 18px;      /* padding menor */
-  width: 100%;
-  max-width: none;
-  min-height: 48px;        /* altura mínima para não ficar achatado */
-  margin: 24px auto 0 auto;
-  transition: box-shadow 0.18s;
-  position: relative;
-}
-
-.aviso-fixo .aviso-icone {
-  font-size: 2rem;
-  line-height: 1;
-  display: block;
-  filter: drop-shadow(0 1px 2px #b71c1c88);
-  user-select: none;
-}
-
-.aviso-fixo .aviso-texto {
-  color: #fff;
-  font-size: 1em;
-  text-align: left;
-  font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: 0.01em;
-  word-break: break-word;
-}
-@media (max-width: 540px) {
   .aviso-fixo {
     width: 100%;
-    max-width: none;
+    max-width: 97vw; /* igual ao container responsivo */
     padding: 8px 4vw;
     font-size: 0.99em;
     border-radius: 7px;
