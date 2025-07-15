@@ -77,7 +77,7 @@ input[type="text"]:focus {
 #resultado {
   min-width: 150px;
   max-width: 100%;
-  width: max-content;             /* faz o resultado caber o maior valor sem quebra */
+  width: max-content;
   display: none;
   align-items: flex-start;
   justify-content: center;
@@ -89,7 +89,7 @@ input[type="text"]:focus {
   margin-bottom: 15px;
   margin-top: 0;
   padding: 8.75px 7.5px 7.5px 7.5px;
-  overflow-x: auto;               /* permite rolagem se valor for muito longo */
+  overflow-x: auto;
 }
 
 /* CAMPOS DE DADOS */
@@ -99,7 +99,7 @@ input[type="text"]:focus {
   justify-content: space-between;
   width: 100%;
   font-size: 1.25em;
-  white-space: nowrap;            /* não quebra linha */
+  white-space: nowrap;
   overflow-x: auto;
 }
 
@@ -162,7 +162,7 @@ input[type="text"]:focus {
   user-select: text;
 }
 
-/* AVISO FIXO */
+/* AVISO FIXO CENTRALIZADO E MENOR */
 .aviso-fixo {
   display: flex;
   flex-direction: row;
@@ -175,10 +175,11 @@ input[type="text"]:focus {
   border: 1.5px solid #b71c1c;
   box-shadow: 0 2px 10px #ff525226;
   padding: 12px 18px;
-  width: 100%;
-  max-width: 375px;    /* igual ao container */
+  width: auto;
+  min-width: 0;
+  max-width: 320px;          /* menor que o container */
   min-height: 48px;
-  margin: 24px 0 0 0;  /* apenas margem superior */
+  margin: 24px auto 0 auto;  /* margin left/right igual, centraliza */
   transition: box-shadow 0.18s;
   position: relative;
 }
@@ -240,14 +241,17 @@ input[type="text"]:focus {
   .titulo-consulta {
     font-size: 1.125em;
   }
+  /* Aviso fixo menor e centralizado no mobile */
   .aviso-fixo {
-    width: 100%;
-    max-width: 97vw; /* igual ao container responsivo */
+    width: auto;
+    min-width: 0;
+    max-width: 92vw;          /* menor que o container mobile */
     padding: 8px 4vw;
     font-size: 0.99em;
     border-radius: 7px;
     gap: 7px;
     min-height: 42px;
+    margin: 18px auto 0 auto; /* centralizado, com margens iguais */
   }
   .aviso-fixo .aviso-icone {
     font-size: 1.4em;
